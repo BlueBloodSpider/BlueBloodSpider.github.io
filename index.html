@@ -154,6 +154,129 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-学习总结(2)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/24/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93(2)/">学习总结(2)</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/24/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93(2)/" class="archive-article-date">
+  	<time datetime="2020-03-24T14:44:00.955Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-学习"><a href="#C-学习" class="headerlink" title="C++学习"></a>C++学习</h1><h2 id="引用（reference"><a href="#引用（reference" class="headerlink" title="引用（reference)"></a>引用（reference)</h2><p>引用的本质其实是一个指针常量 int * const p ,意思就是p所做指向的地址是不可以改变的，也就是指针本身就是一个常量，<br>还有一种容易混淆的，叫做常量指针 const int *p, 这种指针表示的是指向的内容不可以改变，所以就好像这个指针指向了一个“常量”一样。<br>例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> * <span class="keyword">const</span> str = <span class="string">"apple"</span>;</span><br><span class="line">	*str = <span class="string">"orange"</span>;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;str&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	getchar();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>判断以上程序是否可行，答案是不行</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> *<span class="keyword">const</span> str = <span class="string">"apple"</span>;</span><br><span class="line">	str = <span class="string">"apple"</span>;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;str&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	getchar();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样写也是不行额，正确的应该如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> * str =<span class="string">"apple"</span>;</span><br><span class="line">	str = <span class="string">"orange"</span>;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;str&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	getchar();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为引用就是一个指针常量，所以它的指向自然也是不能改变的，<br>那么，我们可以对数组建立一个引用吗？<br>如同这样的写法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> arr[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">int</span>&amp; ref[<span class="number">10</span>] = arr;	<span class="comment">//这种写法是错误的；</span></span><br></pre></td></tr></table></figure>
+
+<p>正确的写法如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>(&amp;f)[<span class="number">10</span>] = arr;</span><br></pre></td></tr></table></figure>
+
+<p>检测：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>( <span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; ++i)</span><br><span class="line">&#123;</span><br><span class="line">	f[i] = i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> ( <span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; ++i)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;arr[i]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+
+
+<p>接下我们来看一下在函数的传递中如何用引用，<br>在以往没有引用概念的时候，我们需要往函数里面传递参数一般是两种办法<br>1.值传递 2.地址传递<br>这两种传递的区别不言而喻，但是现在如果用引入的话，代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">referenceSwap</span><span class="params">(<span class="keyword">int</span>&amp; m, <span class="keyword">int</span>&amp; n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> temp = m;</span><br><span class="line">	m = n;</span><br><span class="line">	n = temp;		<span class="comment">//可以发现比起指针，这种写法要方便快捷的多</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">10</span>; b = <span class="number">20</span>;</span><br><span class="line">	referenceSwap( a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再来看一下函数的返回值情况</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>&amp; <span class="title">testfun01</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">return</span> a;			</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种做法是不行的，因为我们说过不能返回局部变量的地址值<br>但是局部的静态变量是被允许的</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>&amp; <span class="title">testfunc02</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> a = <span class="number">20</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"static int a:"</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而且这个返回值，是可以做左值的。即：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">testfunc02() = <span class="number">100</span>;	<span class="comment">//换而言之，函数要做左值必须换回引用</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="指针引用"><a href="#指针引用" class="headerlink" title="指针引用"></a>指针引用</h2><p>一句话我觉得特别的好，改变一个指向的内容用一级指针，如果要改变一个指针的指向那么可以使用二级指针<br>那么在没有引用之前，我们会这么写：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> **)</span></span>;</span><br><span class="line"><span class="keyword">int</span> ** p;</span><br></pre></td></tr></table></figure>
+
+<p>学习了引用之后，我们也可以把二级指针写成这个样子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>* pointer = <span class="literal">NULL</span>;</span><br><span class="line"><span class="keyword">int</span>*&amp; p = pointer;</span><br></pre></td></tr></table></figure>
+
+<p>一下是一个具体的例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Teacher</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//use pointer change the teacher's age</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func01</span><span class="params">( Teacher ** teacher)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	*teacher  = (Teacher*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Teacher));</span><br><span class="line">	*teacher-&gt;age = <span class="number">200</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//use reference change age;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func02</span><span class="params">( Teacher*&amp; teacher)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	teacher-&gt;age = <span class="number">200</span>;	<span class="comment">//甚至不需要malloc堆空间，因为引用的指向的地址是不可以改变的</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Teacher* teacher = <span class="literal">NULL</span>;</span><br><span class="line">	func01( &amp;teacher );</span><br><span class="line">	func02( teacher );</span><br><span class="line">	<span class="comment">//可见，c++中是引用，非常的方便，因为取地址这一步，已经完全别不用了</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我对于引用的理解就是，解决了往函数中传递参数的复杂性。</p>
+<h2 id="内联函数的概念在这里不做处理"><a href="#内联函数的概念在这里不做处理" class="headerlink" title="内联函数的概念在这里不做处理"></a>内联函数的概念在这里不做处理</h2><h2 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h2><p>函数的默认参数：在定义或者声明的时候直接把数值写好</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testfun01</span><span class="params">( <span class="keyword">int</span> a=<span class="number">0</span>; <span class="keyword">int</span> b=<span class="number">0</span>)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>注意：<br>1.要是声明里面写了数值，那么在函数定义的时候就不能写数字了。<br>2.void testfun02( int a; int b=8; int c=8) 要是前面的写了，那后面的一定要写<br>3.如果没有穿参数，那就使用默认的参数<br>4.如果传入一个参数，那么第二个参数使用默认参数<br>5.都传入了，那就用传入的</p>
+<h2 id="占位参数"><a href="#占位参数" class="headerlink" title="占位参数"></a>占位参数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testfun</span><span class="params">( <span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span>)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是：<br>1.不管默认参数设置不设置默认值，在函数内部都不能用<br>2.传参数的时候一定要确保往默认参数里传值<br>那声明时候用呢？<br>后面操作符重载的后置++会用到，拭目以待。</p>
+<h2 id="函数重载（overload）"><a href="#函数重载（overload）" class="headerlink" title="函数重载（overload）"></a>函数重载（overload）</h2><p>在传统c语言中，函数名必须是唯一的，程序中不允许出现同名的函数。在c++中是允许出现同名的函数，这种现象称为函数重载。(一词多义)<br>目的：方便的使用函数名<br>再往直白的说，其实就是重新定义一个函数，名字可以和之前的一样，但是要注意一下要求：<br>1.同一个作用域<br>2.参数的个数不能一样<br>3.参数的类型不能一样<br>4.参数的顺序不能一样    （后三个条件按应该是满足其中一个就可以了）</p>
+<p>但是如果有默认参数的话，要特别注意下面的情况：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyFunc</span><span class="params">(<span class="built_in">string</span> b)</span></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"b: "</span> &lt;&lt; b &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函数重载碰上默认参数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyFunc</span><span class="params">(<span class="built_in">string</span> b, <span class="keyword">int</span> a = <span class="number">10</span>)</span></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"a: "</span> &lt;&lt; a &lt;&lt; <span class="string">" b:"</span> &lt;&lt; b &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	MyFunc(<span class="string">"hello"</span>); <span class="comment">//这时，两个函数都能匹配调用，产生二义性</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：这个时候会产生二义性</p>
+<h2 id="函数重载实现原理"><a href="#函数重载实现原理" class="headerlink" title="函数重载实现原理"></a>函数重载实现原理</h2><p>编译器为了实现函数重载，也是默认为我们做了一些幕后的工作，编译器用不同的参数类型来修饰不同的函数名，比如void func(); 编译器可能会将函数名修饰成_func，当编译器碰到void func(int x),编译器可能将函数名修饰为_func_int,当编译器碰到void func(int x,char c),编译器可能会将函数名修饰为_func_int_char我这里使用”可能”这个字眼是因为编译器如何修饰重载的函数名称并没有一个统一的标准，所以不同的编译器可能会产生不同的内部名。</p>
+<h2 id="extern-c"><a href="#extern-c" class="headerlink" title="extern c"></a>extern c</h2><p>由于c++中需要支持函数重载，所以c和c++中对同一个函数经过编译后生成的函数名是不相同的，这就导致了一个问题，如果在c++中调用一个使用c语言编写模块中的某个函数，那么c++是根据c++的名称修饰方式来查找并链接这个函数，那么就会发生链接错误，那么如果我想在c++调用c的函数怎么办？<br>extern “C”的主要作用就是为了实现c++代码能够调用其他c语言代码。加上extern “C”后，这部分代码编译器按c语言的方式进行编译和链接，而不是按c++的方式。</p>
+<p>只需要再头文件中添加这段代码就可以做到：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> MYMODULE_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MYMODULE_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> __cplusplus		</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span></span>;			<span class="comment">//把C的函数写在这个中间，然后再文件中调用这个头文件就可以了</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">func2</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>封装包含了两个特性：<br>1.一个是属性和变量变成了一个整体<br>2.给函数和属性增加了访问的权限</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/24/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93(2)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-学习总结(1)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
