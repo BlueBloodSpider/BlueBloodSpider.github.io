@@ -8,16 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>C++(2) | bluebloodspider-个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="C++学习引用（reference)引用的本质其实是一个指针常量 int * const p ,意思就是p所做指向的地址是不可以改变的，也就是指针本身就是一个常量，还有一种容易混淆的，叫做常量指针 const int *p, 这种指针表示的是指向的内容不可以改变，所以就好像这个指针指向了一个“常量”一样。例子： 1234567int main()&amp;#123;	char * const str &#x3D;">
+  <meta name="description" content="# C++学习 引用（reference)引用的本质其实是一个指针常量 int * const p ,意思就是p所做指向的地址是不可以改变的，也就是指针本身就是一个常量，还有一种容易混淆的，叫做常量指针 const int *p, 这种指针表示的是指向的内容不可以改变，所以就好像这个指针指向了一个“常量”一样。例子： 1234567int main()&amp;#123;	char * const st">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++(2)">
 <meta property="og:url" content="http://yoursite.com/2020/03/24/C++(2)/index.html">
 <meta property="og:site_name" content="bluebloodspider-个人博客">
-<meta property="og:description" content="C++学习引用（reference)引用的本质其实是一个指针常量 int * const p ,意思就是p所做指向的地址是不可以改变的，也就是指针本身就是一个常量，还有一种容易混淆的，叫做常量指针 const int *p, 这种指针表示的是指向的内容不可以改变，所以就好像这个指针指向了一个“常量”一样。例子： 1234567int main()&amp;#123;	char * const str &#x3D;">
+<meta property="og:description" content="# C++学习 引用（reference)引用的本质其实是一个指针常量 int * const p ,意思就是p所做指向的地址是不可以改变的，也就是指针本身就是一个常量，还有一种容易混淆的，叫做常量指针 const int *p, 这种指针表示的是指向的内容不可以改变，所以就好像这个指针指向了一个“常量”一样。例子： 1234567int main()&amp;#123;	char * const st">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-24T14:44:00.955Z">
-<meta property="article:modified_time" content="2020-03-24T14:42:34.464Z">
+<meta property="article:modified_time" content="2020-07-13T14:57:14.727Z">
 <meta property="article:author" content="bluebloodspider">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="bluebloodspider-个人博客" type="application/atom+xml">
@@ -174,7 +175,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="C-学习"><a href="#C-学习" class="headerlink" title="C++学习"></a>C++学习</h1><h2 id="引用（reference"><a href="#引用（reference" class="headerlink" title="引用（reference)"></a>引用（reference)</h2><p>引用的本质其实是一个指针常量 int * const p ,意思就是p所做指向的地址是不可以改变的，也就是指针本身就是一个常量，<br>还有一种容易混淆的，叫做常量指针 const int *p, 这种指针表示的是指向的内容不可以改变，所以就好像这个指针指向了一个“常量”一样。<br>例子：</p>
+        <p>﻿# C++学习</p>
+<h2 id="引用（reference"><a href="#引用（reference" class="headerlink" title="引用（reference)"></a>引用（reference)</h2><p>引用的本质其实是一个指针常量 int * const p ,意思就是p所做指向的地址是不可以改变的，也就是指针本身就是一个常量，<br>还有一种容易混淆的，叫做常量指针 const int *p, 这种指针表示的是指向的内容不可以改变，所以就好像这个指针指向了一个“常量”一样。<br>例子：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> * <span class="keyword">const</span> str = <span class="string">"apple"</span>;</span><br><span class="line">	*str = <span class="string">"orange"</span>;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;str&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	getchar();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>判断以上程序是否可行，答案是不行</p>
@@ -264,6 +266,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -359,6 +372,19 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引用（reference"><span class="toc-number">1.</span> <span class="toc-text">引用（reference)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针引用"><span class="toc-number">2.</span> <span class="toc-text">指针引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内联函数的概念在这里不做处理"><span class="toc-number">3.</span> <span class="toc-text">内联函数的概念在这里不做处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认参数"><span class="toc-number">4.</span> <span class="toc-text">默认参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#占位参数"><span class="toc-number">5.</span> <span class="toc-text">占位参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数重载（overload）"><span class="toc-number">6.</span> <span class="toc-text">函数重载（overload）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数重载实现原理"><span class="toc-number">7.</span> <span class="toc-text">函数重载实现原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#extern-c"><span class="toc-number">8.</span> <span class="toc-text">extern c</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#封装"><span class="toc-number">9.</span> <span class="toc-text">封装</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -399,11 +425,11 @@
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false,
+		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,
-		showTags: false
+		showTags: true
 	}
 </script>
 
@@ -463,6 +489,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">python爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">python基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">mylove</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">编程基本功</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
@@ -517,7 +567,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
+              <a href="http://www.54tianzhisheng.cn/2017/12/18/hexo-yilia/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>yilia主题的设置问题</a>
             </li>
           
             <li class="search-li">

@@ -174,7 +174,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="学习总结-3"><a href="#学习总结-3" class="headerlink" title="学习总结(3)"></a>学习总结(3)</h1><h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>示例代码：</p>
+        <p>﻿# 学习总结(3)</p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>示例代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//封装两层含义</span></span><br><span class="line"><span class="comment">//1. 属性和行为合成一个整体</span></span><br><span class="line"><span class="comment">//2. 访问控制，现实事物本身有些属性和行为是不对外开放</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>&#123;</span></span><br><span class="line"><span class="comment">//人具有的行为(函数)</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Dese</span><span class="params">()</span></span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"我有钱，年轻，个子又高，就爱嘚瑟!"</span> &lt;&lt; <span class="built_in">endl</span>;&#125;</span><br><span class="line"><span class="comment">//人的属性(变量)</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> mTall; <span class="comment">//多高，可以让外人知道</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="keyword">int</span> mMoney; <span class="comment">// 有多少钱,只能儿子孙子知道</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> mAge; <span class="comment">//年龄，不想让外人知道</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Person p;</span><br><span class="line">	p.mTall = <span class="number">220</span>;</span><br><span class="line">	<span class="comment">//p.mMoney 保护成员外部无法访问</span></span><br><span class="line">	<span class="comment">//p.mAge 私有成员外部无法访问</span></span><br><span class="line">	p.Dese();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> 和 <span class="title">class</span> 的区别</span></span><br><span class="line"><span class="class"><span class="title">class</span>默认访问权限为<span class="title">private</span>,<span class="title">struct</span>默认访问权限为<span class="title">public</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">A</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> mAge;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">B</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> mAge;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	A a;</span><br><span class="line">	B b;</span><br><span class="line">	<span class="comment">//a.mAge; //无法访问私有成员</span></span><br><span class="line">	b.mAge; <span class="comment">//可正常外部访问</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="将成员变量设置成private"><a href="#将成员变量设置成private" class="headerlink" title="将成员变量设置成private"></a>将成员变量设置成private</h2><p>1.就是你在访问这个对象的时候就不用考虑是不是要加(),因为你一旦设置成private,那么类似name.something的内容就访问不到了，只能用函数来访问，那毫无疑问是要（）<br>2.我们可以把我们的访问变得很精细<br>代码如下:</p>
@@ -207,6 +208,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -261,7 +273,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="C-学习"><a href="#C-学习" class="headerlink" title="C++学习"></a>C++学习</h1><h2 id="引用（reference"><a href="#引用（reference" class="headerlink" title="引用（reference)"></a>引用（reference)</h2><p>引用的本质其实是一个指针常量 int * const p ,意思就是p所做指向的地址是不可以改变的，也就是指针本身就是一个常量，<br>还有一种容易混淆的，叫做常量指针 const int *p, 这种指针表示的是指向的内容不可以改变，所以就好像这个指针指向了一个“常量”一样。<br>例子：</p>
+        <p>﻿# C++学习</p>
+<h2 id="引用（reference"><a href="#引用（reference" class="headerlink" title="引用（reference)"></a>引用（reference)</h2><p>引用的本质其实是一个指针常量 int * const p ,意思就是p所做指向的地址是不可以改变的，也就是指针本身就是一个常量，<br>还有一种容易混淆的，叫做常量指针 const int *p, 这种指针表示的是指向的内容不可以改变，所以就好像这个指针指向了一个“常量”一样。<br>例子：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> * <span class="keyword">const</span> str = <span class="string">"apple"</span>;</span><br><span class="line">	*str = <span class="string">"orange"</span>;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;str&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	getchar();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>判断以上程序是否可行，答案是不行</p>
@@ -330,6 +343,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -384,8 +408,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>@<a href="学习总结（1）">TOC</a></p>
-<h2 id="1-数据结构—队列"><a href="#1-数据结构—队列" class="headerlink" title="1. 数据结构—队列"></a>1. 数据结构—队列</h2><p>队列是典型的 FIFO 数据结构。插入（insert）操作也称作入队（enqueue），新元素始终被添加在队列的末尾。 删除（delete）操作也被称为出队（dequeue)。 你只能移除第一个元素。下图是描述队列的基本模型：<br><img src="https://img-blog.csdnimg.cn/2020032321522350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTEwMjk1MA==,size_16,color_FFFFFF,t_70" alt="图片转载自leetcode"><br>    然而，一般的队列效率是低下的，一种更加有效的方式是<strong>循环队列</strong>，具体来说，我们可以使用固定大小的数组和<strong>两个指针</strong>来指示起始位置和结束位置。 目的是重用我们之前提到的被浪费的存储。</p>
+        <h2 id="1-数据结构—队列"><a href="#1-数据结构—队列" class="headerlink" title="1. 数据结构—队列"></a>1. 数据结构—队列</h2><p>队列是典型的 FIFO 数据结构。插入（insert）操作也称作入队（enqueue），新元素始终被添加在队列的末尾。 删除（delete）操作也被称为出队（dequeue)。 你只能移除第一个元素。下图是描述队列的基本模型：<br><img src="https://img-blog.csdnimg.cn/2020032321522350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTEwMjk1MA==,size_16,color_FFFFFF,t_70" alt="图片转载自leetcode"><br>    然而，一般的队列效率是低下的，一种更加有效的方式是<strong>循环队列</strong>，具体来说，我们可以使用固定大小的数组和<strong>两个指针</strong>来指示起始位置和结束位置。 目的是重用我们之前提到的被浪费的存储。</p>
 <h3 id="1-1-C-代码实现（循环队列）"><a href="#1-1-C-代码实现（循环队列）" class="headerlink" title="1.1 C++代码实现（循环队列）"></a>1.1 C++代码实现（循环队列）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyCircularQueue</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; data;</span><br><span class="line">    <span class="keyword">int</span> head;       <span class="comment">//定义头</span></span><br><span class="line">    <span class="keyword">int</span> tail;       <span class="comment">//定义尾巴</span></span><br><span class="line">    <span class="keyword">int</span> size;       <span class="comment">//定义大小</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/** Initialize your data structure here. Set the size of the queue to be k. */</span></span><br><span class="line">    MyCircularQueue(<span class="keyword">int</span> k) &#123;    <span class="comment">//初始化</span></span><br><span class="line">        data.resize(k);</span><br><span class="line">        head = <span class="number">-1</span>;</span><br><span class="line">        tail = <span class="number">-1</span>;</span><br><span class="line">        size = k;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Insert an element into the circular queue. Return true if the operation is successful. */</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">enQueue</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isFull()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            head = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        tail = (tail + <span class="number">1</span>) % size;       <span class="comment">//关键操作：循环的一种算法</span></span><br><span class="line">        data[tail] = value;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Delete an element from the circular queue. Return true if the operation is successful. */</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">deQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (head == tail) &#123;</span><br><span class="line">            head = <span class="number">-1</span>;</span><br><span class="line">            tail = <span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        head = (head + <span class="number">1</span>) % size;       <span class="comment">//循环算法</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Get the front item from the queue. */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Front</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> data[head];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Get the last item from the queue. */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Rear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> data[tail];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Checks whether the circular queue is empty or not. */</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> head == <span class="number">-1</span>;          <span class="comment">//头为-1判断是否为空</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Checks whether the circular queue is full or not. */</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isFull</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ((tail + <span class="number">1</span>) % size) == head;     <span class="comment">//（尾+1）/大小，可以判断是否为满</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p><strong>由于c++中有库可以调用所以不必重复的造轮子。</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. Initialize a queue.</span></span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">    <span class="comment">// 2. Push new element.</span></span><br><span class="line">    q.push(<span class="number">5</span>);</span><br><span class="line">    q.push(<span class="number">13</span>);</span><br><span class="line">    q.push(<span class="number">8</span>);</span><br><span class="line">    q.push(<span class="number">6</span>);</span><br><span class="line">    <span class="comment">// 3. Check if queue is empty.</span></span><br><span class="line">    <span class="keyword">if</span> (q.empty()) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Queue is empty!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 4. Pop an element.</span></span><br><span class="line">    q.pop();</span><br><span class="line">    <span class="comment">// 5. Get the first element.</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The first element is: "</span> &lt;&lt; q.front() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// 6. Get the last element.</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The last element is: "</span> &lt;&lt; q.back() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// 7. Get the size of the queue.</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The size is: "</span> &lt;&lt; q.size() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -430,6 +453,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -471,7 +505,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/22/c%E8%BF%9B%E9%98%B6/">c进阶</a>
+      <a class="article-title" href="/2020/03/22/c%E8%BF%9B%E9%98%B6/">C进阶（1）</a>
     </h1>
   
 
@@ -520,6 +554,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">C</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -561,7 +606,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/21/wjj%E5%96%9C%E6%AC%A2%E5%B0%8F%E8%B4%9E%E8%B4%9E/">wjj喜欢小贞贞</a>
+      <a class="article-title" href="/2020/03/21/wjj%E5%96%9C%E6%AC%A2%E5%B0%8F%E8%B4%9E%E8%B4%9E/">wjj喜欢fhz-hello</a>
     </h1>
   
 
@@ -582,6 +627,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">mylove</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -647,11 +703,11 @@
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false,
+		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,
-		showTags: false
+		showTags: true
 	}
 </script>
 
@@ -711,6 +767,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">python爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">python基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">mylove</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">编程基本功</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
@@ -765,7 +845,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
+              <a href="http://www.54tianzhisheng.cn/2017/12/18/hexo-yilia/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>yilia主题的设置问题</a>
             </li>
           
             <li class="search-li">
