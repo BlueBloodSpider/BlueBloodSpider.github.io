@@ -154,6 +154,111 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-python之爬虫(1)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/27/python%E4%B9%8B%E7%88%AC%E8%99%AB(1)/">python爬虫第一篇</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/27/python%E4%B9%8B%E7%88%AC%E8%99%AB(1)/" class="archive-article-date">
+  	<time datetime="2020-03-27T14:54:39.481Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>﻿## robot协议</p>
+<p><strong>爬虫的协议，通常是一个robot.txt的文本文件，</strong><br><strong>样例：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">user-agent: *(对任何爬虫有效)</span><br><span class="line">disallow:/</span><br><span class="line">allow:/<span class="keyword">public</span>/</span><br></pre></td></tr></table></figure>
+
+<h2 id="python爬虫相关库"><a href="#python爬虫相关库" class="headerlink" title="python爬虫相关库"></a>python爬虫相关库</h2><p><strong>通用库</strong>（http的请求库，提供一系列用于操作的URL的功能）<br>有urlib, urlib3(比前面的更加安全)<br><strong>框架 scrapy</strong>（一个为了爬取网站数据，提取结构性数据而编写的应用框架）<br><strong>HTML/XML解析器</strong><br><strong>lxml</strong> c语言编写高效的HTML/XML处理库，支持XPath<br><strong>BeautifulSoup4</strong> 纯python实现的处理库，效率相对比较低</p>
+<h2 id="requests库的用法"><a href="#requests库的用法" class="headerlink" title="requests库的用法"></a>requests库的用法</h2><p><strong>r = requests.get(url, pararms = None, **kwargs);</strong><br>返回的对象叫做<strong>Response</strong>，他有五个常用的属性<br><strong>r.status_code</strong> (http请求的返回状态，200可，404不可)<br><strong>r.text</strong> (http的字符串形式)<br><strong>r.encoding</strong>( 网页的编码方式,从header中猜测的）<br><strong>r.apparent_encoding</strong>( 同上，但是是从内容中猜测出来的)<br><strong>r.content</strong> (http响应内容的二进制形式） </p>
+<p>爬取实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">"https://pro.jd.com/mall/active/3MEfvhssijcjGZDTHksFm1xnSoEF/index.html"</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    r = requests.get(url)</span><br><span class="line">    r.raise_for_status();</span><br><span class="line">    r.encoding = r.apparent_encoding</span><br><span class="line">    print( r.text );</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">"爬取失败"</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果是亚马逊的话会遇到遇到问题，用如下代码即可：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">"https://www.amazon.cn/dp/B001SUAH2M?ref_=\</span></span><br><span class="line"><span class="string">Oct_DLandingS_D_203565d7_60&amp;smid=A26HDXW89ZT98L"</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    r = requests.get(url)</span><br><span class="line">    r.raise_for_status();</span><br><span class="line">    r.encoding = r.apparent_encoding</span><br><span class="line">    print( r.text );</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">"爬取失败"</span>);</span><br><span class="line">    print(r.request.headers)</span><br><span class="line">    kv = &#123;<span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0'</span>&#125;</span><br><span class="line">    r = requests.get(url, headers = kv);</span><br><span class="line">    r.encoding = r.apparent_encoding</span><br><span class="line">    print(<span class="string">"再次爬取成功！"</span>)</span><br><span class="line">    print( r.text );</span><br></pre></td></tr></table></figure>
+
+<h2 id="那么我们如果要向百度提交关键词然后让它返回一个怎么做呢？"><a href="#那么我们如果要向百度提交关键词然后让它返回一个怎么做呢？" class="headerlink" title="那么我们如果要向百度提交关键词然后让它返回一个怎么做呢？"></a>那么我们如果要向百度提交关键词然后让它返回一个怎么做呢？</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">keyword = <span class="string">"Python"</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    kv = &#123;<span class="string">'wd'</span>:keyword&#125;</span><br><span class="line">    r = requests.get(<span class="string">"https://www.baidu.com/s"</span>, params=kv)</span><br><span class="line">    print(r.request.url)</span><br><span class="line">    r.raise_for_status()</span><br><span class="line">    print(len(r.text))</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">"爬取失败"</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="爬取图片"><a href="#爬取图片" class="headerlink" title="爬取图片"></a>爬取图片</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">url = <span class="string">"https://timgsa.baidu.com/timg?image&amp;\</span></span><br><span class="line"><span class="string">quality=80&amp;size=b9999_10000&amp;sec=1585312263330&amp;di=f552ebc36177\</span></span><br><span class="line"><span class="string">d93453c888f6587e503e&amp;imgtype=0&amp;src=http%3A%2F%2Fb-ssl.duitan\</span></span><br><span class="line"><span class="string">g.com%2Fuploads%2Fitem%2F201812%2F08%2F20181208111719_rzyuy.thumb.700_0.jpg"</span></span><br><span class="line">path = <span class="string">"D://abc.jpg"</span></span><br><span class="line"><span class="comment">#path = root + url.split('/')[-1]</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(path):</span><br><span class="line">        r = requests.get(url)</span><br><span class="line">        <span class="keyword">with</span> open(path, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(r.content)</span><br><span class="line">            f.close()</span><br><span class="line">            print(<span class="string">"文件保存成功"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"文件已经存在"</span>)</span><br><span class="line">                  </span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">"爬取失败"</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="解析ip地址归属地"><a href="#解析ip地址归属地" class="headerlink" title="解析ip地址归属地"></a>解析ip地址归属地</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">"http://m.ip138.com/ip.asp?ip="</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    r = requests.get(url+<span class="string">'IP地址'</span>)</span><br><span class="line">    r.raise_for_status()</span><br><span class="line">    r.encoding = r.apparent_ending</span><br><span class="line">    print(r.text[<span class="number">-500</span>:<span class="number">0</span>])</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">"爬取失败"</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">python爬虫</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/27/python%E4%B9%8B%E7%88%AC%E8%99%AB(1)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-C++(3)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -773,11 +878,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C</a>
+                <a href="javascript:void(0)" class="js-tag color4">python爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">python爬虫</a>
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
               </li>
              
               <li class="article-tag-list-item">
